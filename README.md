@@ -1,6 +1,11 @@
 # About
 
-This project recreates the popular word-guessing game Wordle using React, with API integration to dynamically generate a random 5-letter word and verify user inputs. The front-end is built with React, offering a responsive user interface where players can enter guesses, and the game provides real-time feedback on the correctness of each guess. The application makes API calls to fetch a new word each day, ensuring a fresh challenge for users. It also communicates with a validation API to check the accuracy of user input, giving feedback on correct letters, wrong placements, and invalid words.
+This project recreates the popular word-guessing game Wordle using React, with API integration to dynamically generate a random 5-letter word and verify user inputs. The front-end is built with React, offering a responsive user interface where players can enter guesses, and the game provides real-time feedback on the correctness of each guess.
+
+The application makes API calls to fetch a new word each time the GamePage is loaded, ensuring a new challenge for users. It also communicates with a validation API to check the accuracy of user input, and uses Javascript to give feedback on correct letters, wrong placements, and invalid words.
+
+## Features to come
+- Login/Registration Page + connecting to database
 
 
 # Getting Started with Create React App
