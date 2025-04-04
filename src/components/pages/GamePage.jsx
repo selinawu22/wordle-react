@@ -4,12 +4,14 @@ import WordGrid from '../WordGrid';
 import FinishPage from './FinishPage';
 import Logo from '../Logo';
 
+const PORT = 4300;
 const WORD_LENGTH = 5;
 const EMPTY_WORD = '     '
 const TOTAL_ATTEMPTS = 6;
 
 const WORD_GEN_API_URL = `https://random-word-api.herokuapp.com/word?length=${WORD_LENGTH}`;
 const WORD_CHECK_API_URL = 'https://api.dictionaryapi.dev/api/v2/entries/en';
+const SERVER_URL = `http://localhost:${PORT}`
 
 let wordOfTheDay;
 
@@ -30,23 +32,27 @@ function GamePage({setPageState}) {
 
     // get 5 letter word via API
     useEffect(() => {getWord()}, []);
+
     const getWord = () => { 
-      return fetch(WORD_GEN_API_URL).then((res) => {
-        if (!res.ok) {
-          throw new Error('invalid word')
+      fetch(`${SERVER_URL}/getword`)
+      .then((data) => {
+        if (!data.ok) {
+          console.error('Error getting data:')
         }
-        return res.json();
+        return data.json()
       }).then((word) => {
-        wordOfTheDay = word.toLocaleString().toLocaleUpperCase();
-        console.log(wordOfTheDay);
-      }).catch(
-        wordOfTheDay = "SMILE"
-      )
+        wordOfTheDay = word[0];
+      })
+      .catch((error) => {
+          console.error('Error fetching data:', error)
+          wordOfTheDay = "SMILE"
+      });
     }
 
     // checks valid 5 letter word via API
     const checkValidWord = () => {
-      return fetch(`${WORD_CHECK_API_URL}/${word}`).then((res) => {
+      return fetch(`${SERVER_URL}/checkword?word=${word}`)
+      .then((res) => {
         if (!res.ok) {
           throw new Error('invalid word')
         }
